@@ -1,0 +1,984 @@
+breakpoints
+sm (640px)
+md (768px)
+lg (1024px)
+xl (1280px)
+2xl (1536px)
+
+// grid 
+kisi bhi div ko row banana ho to us ko grid class bana den gey 
+or is row me kitney colams hun gey class grid ke sath grid-cols-2,3,4,5
+jitney 1 row me col dekhanay hen wo batayen gey or in col me kitna gap ho ga ye bhi
+ gap-4,5,6,7 dena ho ga apni condition ko dekhatey huvey 
+
+
+const data = [
+  {
+    label : "Username",
+    name : "name",
+    type : "email"
+  },
+  {
+    label : "Password",
+    name : "password",
+    type : "password"
+  },
+  {
+    label : "DOB",
+    name : "dob",
+    type : "date"
+  },
+  {
+    el : "select",
+    options : [
+      {
+        name : "Male",
+        value : "male"
+      },
+      {
+        name : "Female",
+        value : "female"
+      },
+      {
+        name : "Other",
+        value : "other"
+      }
+    ]
+  }
+]
+
+const Select =  ({input})=>{
+  return (
+    <>
+      <div className="mb-3">
+          <select className="border p-3 w-full" >
+           {
+            input.options.map((option,index)=>{
+              return <option key={index} value={option.value} >{option.name}</option>
+            })
+           }
+          </select>
+      </div>
+    </>
+  )
+}
+
+const Input =  ({input})=>{
+  return (
+    <>
+      <div className="mb-3">
+          <label className="block mb-3 text-3xl" >{input.label} </label>
+          <input
+           name={input.name}
+            type={input.type}
+            className="border p-3 w-full"
+            />
+      </div>
+    </>
+  )
+}
+
+ //<div className="bg-rose-600 min-h-screen flex justify-center items-center">
+      <div className="bg-white p-3 sm:p-16 w-full  sm:w-6/12  border-red-600 rounded-lg min-h-screen sm:min-h-0">
+        <h1 className="text-3xl mb-3">Signup</h1>
+        {
+          data.map((input,index)=>{
+              if(input.el === "select"){
+                return <Select key={index} input={input} />
+              }
+            return <Input key={index} input={input} />
+          })
+        }
+        <button className="bg-rose-600 text-white text-2xl p-3 w-full mt-5">Submit</button>
+      </div>
+
+  </div>
+
+
+
+    //////////////////////////////// ch 6 
+
+    jo bhi compunent banayen gey wo src/app folder se bahir hona chahey warna wo
+    route key folder baneyen gey
+    
+/////////////// card
+
+const actions = [
+  <Button theme={"o-primary"}>Cancel</Button>,
+  <Button theme={"warning"}>Regestir</Button>
+]
+
+ <div className="flex justify-center items-center min-h-screen bg-blue-600">
+            <div className=" w-full sm:w-4/12 px-2 sm:px-0">
+                <Card title={"NASIR HANIF"} actions={actions}>
+                    hello i am desc,Lorem ipsum dolor sit 
+                    amet consectetur adipisicing elit. Ad,
+                    quo iste corrupti, rem provident eveniet
+                    quam enim voluptatibus inventore, exercitationem tenetur 
+                    sunt optio fuga itaque nulla tempore omnis tempora minima.
+                  </Card>
+              </div>
+          </div>
+
+
+////////////// ch 9 effect 
+"use client"
+import { Button, Fade, Navbar ,Zoom , Expand, Flip } from "../../Tailwind/page";
+import { useState } from "react";
+
+const Page = () => {
+  const [show, setShow] = useState(true)
+
+  const menus = {
+    brand: "Nasir Hanif",
+    link: [
+      {
+        label: "Home",
+        href: "/"
+      },
+      {
+        label: "Products",
+        href: "/products"
+      },
+      {
+        label: "Contact",
+        href: "/contact"
+      },
+      {
+        label: "About",
+        href: "/about"
+      }
+    ]
+  }
+  const design = (
+    <>
+      <Navbar
+        theme="error"
+        variant="three"
+        menu={menus}
+
+      />
+      <Button 
+      onClick={()=>setShow(!show)}
+      style={{ marginTop: "20px" }}>
+        Toggle
+        </Button>
+
+       <div className="w-4/12">
+          <Flip state={show} className="w-full">
+            <img src="/demo.jpg" alt="product image" className="w-full" />
+          </Flip>
+       </div>
+   
+    </>
+  );
+  return design
+}
+
+export default Page
+// ch9 icon add
+
+https://heroicons.com/
+icon laganey ke leye jo icon name hey is he name se compunent baneye 
+or is me is site se icon le ke jsx wala lena hey or compunent me rekh ke export kerna
+hey page.js me or jaha chahehen waha import ker ke use ker saktey hen
+lakin is icon ko use kerney k leye alag compunent bana ke use kia jata hey 
+is ko code bara hota hey 
+
+
+export  const Home = ()=>{
+    const design = (
+        <>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+            </svg>
+
+        </>
+    );
+    return design
+}
+
+export  const TrashIcon = ()=>{
+    const design = (
+        <>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                 <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+            </svg>
+
+        </>
+    );
+    return design
+}
+
+
+npm i material-icons
+layout.js jo keh main file hoti hey is me add kerna hey 
+import 'material-icons/iconfont/material-icons.css';
+
+
+span tag me className="material-icons" likhana hey or jis name se 
+icon chahey is ka name span tag k html me rakhna hey
+or ager outline wala icon chahey is me 
+className="material-icons-outlined" 
+lagana hey 
+
+
+
+      <Button 
+      onClick={()=>setShow(!show)}
+      style={{ marginTop: "20px" }} 
+      className="flex gap-2">
+      <span className="material-icons">home</span>  Home 
+      </Button>
+
+      <Button 
+      onClick={()=>setShow(!show)}
+      style={{ marginTop: "20px" }} 
+      className="flex gap-2">
+      <span className="material-icons-outlined">delete</span>  Delete 
+      </Button>
+
+
+      //////////// pattren 
+css file ko module bana ke is me jo patren rakhna hey is name se class bana ke
+pattren waley compunent me call ker lena hey is 
+file ko connect kerney ke leye 
+import statment changw kerna ho ga 
+
+import Style from "./Patterns.module.css"
+
+ <PatternTwo>
+ <Navbar
+              theme="error"
+              variant="three"
+              menu={menus}/>
+
+            <Button 
+            onClick={()=>setShow(!show)}
+            style={{ marginTop: "20px" }} 
+            className="flex gap-2">
+            <span className="material-icons">home</span>  Home 
+            </Button>
+  </PatternTwo>
+
+  
+
+      .one{
+    min-height: 100vh;
+ background-color: #c7c9e0;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='105' viewBox='0 0 80 105'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='death-star' fill='%235204cf' fill-opacity='0.4'%3E%3Cpath d='M20 10a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V10zm15 35a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V45zM20 75a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V75zm30-65a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V10zm0 65a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V75zM35 10a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V10zM5 45a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V45zm0-35a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V10zm60 35a5 5 0 0 1 10 0v50a5 5 0 0 1-10 0V45zm0-35a5 5 0 0 1 10 0v20a5 5 0 0 1-10 0V10z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.two{
+    min-height: 100vh;
+    background-color: #DFDBE5;
+    background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+      export const PatternOne = ({children})=>{
+    const design = (
+        <>
+         <div className={Style.one}>
+            {children}
+         </div>
+        </>
+
+    );
+    return design
+}
+
+//////////   icon 
+
+
+
+  className="flex gap-2">
+              <Icon 
+              className="text-red-600"
+              >home</Icon> 
+            Home 
+            </Button>
+
+
+            **************************************
+
+ const Icon = ({
+    children,
+    outlined=false,
+    className=""
+})=>{
+    const design = (
+        <>
+          <span className={
+            outlined ? 
+            `${className}  material-icons-outlined`
+            :
+            `${className}  material-icons`
+          }>
+             {children}
+          </span>
+        </>
+
+    );
+    return design
+}
+
+export default Icon
+
+// ////////// icon btn 
+
+//////////////////////////////   ch 11 
+react-spring
+animation and tuch 
+
+import { useSpring,animated } from "@react-spring/web";
+import { useState } from "react";
+import { Button } from "../../Tailwind/page";
+
+const [pause,setPause]= useState(false)
+
+  const move = useSpring({
+
+    loop :  {
+      reverse : true
+    },
+   
+      from : {
+        color : "red",
+        top: 0,
+        left : 0,
+       
+      },
+      to : {
+        color : "green",
+        top : 0,
+        left :200,
+        
+      },
+      config : {
+        duration : 2000
+      }
+  })
+
+const {number} = useSpring({
+  pause :pause,
+  loop : {
+    reverse : true
+  },
+  delay :2000,
+  from : {
+    number : 100
+  },
+  to :{
+    number : 0
+  },
+  config : {
+    duration : 2000
+  }
+})
+
+ <animated.h1 
+          className="absolute text-9xl font-bold" 
+          style={move}>
+        nasir hanif
+      </animated.h1>
+
+      <animated.h1 className="absolute text-9xl font-bold text-green-600" >
+      {
+        number.to((counter)=>Math.floor(counter))
+      }
+      </animated.h1>
+
+      <Button className="mt-40" onClick={()=>setPause(!pause)}>Control</Button>
+
+
+const {scroll} = useSpring({
+  loop : {
+    reverse : true
+  },
+  from : {
+    scroll : 0
+  },
+  to : {
+    scroll :500
+  }
+})
+
+<animated.div className="bg-green-600 h-96 overflow-auto" scrollTop={scroll }>
+          <img src="/demo.jpg" alt="demo" className="5/12" />
+          <img src="/demo.jpg" alt="demo" className="5/12" />
+          <img src="/demo.jpg" alt="demo" className="5/12" />
+          <img src="/demo.jpg" alt="demo" className="5/12" />
+          <img src="/demo.jpg" alt="demo" className="5/12" />
+      </animated.div>
+
+
+      -----------------------gesture----------
+      drag and drop ya tuch functionealty ko hasil kerney k leye
+      react-use-gesture ko install kerna ho ga
+      jis compunent me use kerna hey is me import kerna hey useDrag ko
+
+      import { useDrag } from "react-use-gesture";
+
+       const gesture = useDrag();
+       phir compunent body me as 1 vareable me rukh ke call ker dena hey
+       or ji compunent ko drag kerna hey is tag ya element ko drag kerna hey is ki 
+       templet littreal me spred opreater ke sath function ke roop me call keren gey ,
+       or yead rahey react-spring sath use kerna ho ga 
+       exemple
+       
+         <animated.div 
+      {...gesture()}
+        style={{
+          width: "100px",
+          height: "100px",
+          background: "orange",
+          x,
+          y
+        }}>
+      </animated.div>
+
+      useDrag me kisi bhi name se function bana ke call ker saktey hen
+      exemple  const gesture = useDrag(handleDrag);
+      or is function me event ko resive ker ke console ker len gey 
+      jis element me    {...gesture()} gester ko coll kia gaya ho ga is he element
+      pe moue ko le ja ke button daba ke rakhney pe 
+      drag kia jaye ga is heelement ki ander ka event useDrag ke ander mojood
+      function ko call karey ga or is function ko event ki tammam property ka 
+      accesss mil jaye ga
+      event me se offset ka 1 array miley ga jis me array ka 0 index first element bataye ga 
+      keh app ne left se kitna move kia or array ka 1 index dosra element bataye ga 
+      ap ne element ko top se kitna move kia  
+
+       const handleDrag = (e)=>{
+        const left = e.offset[0]
+        const top = e.offset[1]
+        api.start({
+          x : left,
+          y : top
+        })
+      }
+
+      ab is element ko jaha bhi drag
+       karen gey waha chala jaye ga is element ki position
+        wahi ofset ho gi jo wo element resive karey ga
+
+        or ager hum movement ka use kertey hen to element ko jis jagha bhi drag karen gey is hi 
+        jagha se wapis apni origneal position pe wapis chala jaye ga
+        or se smooth bhi work kerta hey 
+
+         const handleDrag = (e)=>{
+        // const left = e.offset[0]
+        // const top = e.offset[1]
+
+
+        const left = e.movement[0]
+        const top = e.movement[1]
+        console.log(e)
+        api.start({
+          x : left,
+          y : top
+        })
+      }
+event me se movement ko de strecter ko ker saktey hen
+
+
+
+  const handleDrag = ({movement})=>{
+    // const left = e.offset[0]
+    // const top = e.offset[1]
+
+
+    const left = movement[0]
+    const top = movement[1]
+    console.log(e)
+    api.start({
+      x : left,
+      y : top
+    })
+  }
+
+
+import { useSpring, animated } from "@react-spring/web";
+import { useState } from "react";
+import { Button } from "../../Tailwind/page";
+import { useDrag } from "react-use-gesture";
+  const gesture = useDrag(handleDrag);
+
+  const [{ x, y }, api] = useSpring(() => ({
+    x: 0,
+    y: 0
+  }))
+
+
+  const moveHandle = () => {
+    api.start({
+      x: 100,
+      y: 200
+    })
+  }
+
+        <animated.div 
+      {...gesture()}
+        style={{
+          width: "100px",
+          height: "100px",
+          background: "orange",
+          x,
+          y
+        }}>
+      </animated.div>
+
+
+      <Button
+        onClick={moveHandle}
+        className="mt-10"
+        theme="success"
+      >Move</Button>
+
+==================== drag left and right 
+direction ki value bhi asey hi nikley gi
+left to right drop kerney ke leye  event se direction ki value ikalen gey
+or in ko compair karen gey 
+
+  const handleDrag = ({direction})=>{
+    const left = direction[0]
+   if(left > 0){
+      console.log("swep left")
+   }else{
+      console.log("swep right")
+   }
+   left to right draG kerney PE POSITIVE NUMBEr miley ga OR right to left drag kerney pe nagetive number mILay ga 
+positive number 987654356789 12345 wali value 
+   0 tek aney wali value positive me aye gi 0 number positive numer me shamil hota hey
+    is se nechey  -1 me anay wali 
+   value nagetive me shumar ho gi 
+
+   "use client";
+
+import { useSpring,animated } from "@react-spring/web";
+import { useDrag } from "react-use-gesture";
+import { Button } from "../../Tailwind/page";
+
+
+const Page = () => {
+
+const [{width},api] = useSpring(()=>({
+  width : 0
+}))
+
+
+  const handleDrag = ({direction})=>{
+    const left = direction[0]
+    let w = 0;
+   if(left > 0){
+    // console.log("swep left")
+     w = 250
+   }else{
+    // console.log("swep right")
+     w = 0
+   }
+api.start({
+  width : w
+})
+   
+    }
+const drag = useDrag(handleDrag)
+
+  const design = (
+    <>
+      <div {...drag()}
+       className="flex flex-row items-start min-h-screen bg-gray-200">
+          <animated.div className="min-h-screen bg-white overflow-hidden" style={{width : width}}>
+             <h1>just for nasir</h1>
+          </animated.div>
+          <Button>main container</Button>
+      </div>
+    </>
+  );
+  return design
+}
+
+export default Page
+  -----------------------------------------------------------------------
+  //////////// multi button handle ch-12
+"use client";
+import { useState } from "react";
+import { Button } from "../../Tailwind/page";
+
+
+const Page = () => {
+const [x , setX]= useState(false)
+const [i,setI]= useState(0)
+
+const handle = (index)=>{
+  return(
+    setI(index),
+    setX(index == i ? !x : true)
+  )
+}
+
+  const design = (
+    <>
+      <div className="flex gap-3">
+        {
+          Array(10).fill(0).map((item,index)=>{
+           return <Button 
+           onClick={()=>handle(index)} 
+           className={x && index == i ? "bg-red-500" : null}
+           theme="primary"
+           >hello{i}</Button>
+          })
+        }
+      </div>
+    </>
+  );
+  return design
+}
+
+export default Page
+---------------------------- formik ch-12
+npm i formik and 
+npm i yup 
+
+formik or yup ka use ker k her input ka state handel nahi kerna parey ga 
+or validation bhi asani se ker payen gey
+import {
+     Formik,
+     Form,
+     Field,
+     ErrorMessage
+     } from "formik";
+import { Button } from "../page";
+
+const FormDesign = ()=>{
+
+const defaultValue = {
+    email : "",
+    password : ""
+}
+
+
+const loginSubmit = (valuse)=>{
+console.log(valuse)
+}
+
+    const design = (
+        <>
+          <Formik onSubmit={loginSubmit} initialValues={defaultValue}>
+                <Form  className="flex flex-col w-4/12 gap-5">
+                    <Field 
+                    className="border p-3"
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    />
+                    <Field 
+                    className="border p-3"
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    />
+                    <Button className="p-3" theme="success">Login</Button>
+                </Form>
+            </Formik>  
+        </>
+    );
+    return design
+}
+
+export default FormDesign
+
+----------------------------------ch-13
+
+{
+            (formik)=>{
+                console.log(formik)
+            }
+           }
+           // dirty
+console kerney pe derty ki value false miley gi derty ki value us waqat false miley gi jab tammam
+fileds me ap ne data fill ker deya ho
+// isValid
+
+by default true rahey ga ager filed me koi error ho ga is ki value false ho jaye gi
+
+validation form and disable submit button
+---------------------------------------------------
+import "./Form.css"
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Button } from "../page";
+import * as  yup from "yup"
+
+const FormDesign = () => {
+
+    const schema = yup.object({
+        email: yup.string()
+            .required("Email is required !")
+            .email("Please enter valid email"),
+        password: yup.string()
+            .required("Password is required !")
+    })
+
+    const defaultValue = {
+        email: "",
+        password: ""
+    }
+
+    const onSubmit = (values) => {
+        console.log(values)
+    }
+
+    const design = (
+        <>
+            <Formik
+                onSubmit={onSubmit}
+                validationSchema={schema}
+                initialValues={defaultValue}>
+                {
+                    (formik) => {
+                        console.log(formik)
+                        return (
+                            <>
+                                <Form className="flex flex-col gap-3 w-full sm:w-4/12">
+                                    <Field
+                                        className="border p-3"
+                                        type="email"
+                                        name="email"
+                                        placeholder="Email"
+                                    />
+                                    <ErrorMessage className="text-red-500" name="email" component="p" />
+
+                                    <Field
+                                        className="border p-3"
+                                        name="password"
+                                        type="password"
+                                        placeholder="Password"
+                                    />
+                                    <ErrorMessage className="text-red-500" name="password" component="p" />
+                                    <Button
+                                    disabled={!(formik.dirty &&  formik.isValid)}
+                                    type="submit" className="bg-red-500 text-white p-3">Submit</Button>
+                                </Form>
+                            </>
+                        )
+                    }
+                }
+            </Formik>
+        </>
+    );
+    return design
+}
+
+export default FormDesign
+---------------------------------------
+
+daynamic fileds and textarea
+
+import { Input, FormDesign } from "../../Tailwind/page";
+
+  <FormDesign onSubmit={()=>alert()}>
+        <div className="flex flex-col gap-3 w-4/12">
+          <Input
+            name="fullname"
+            type="text"
+            placeholder="Fullname"
+          />
+          <Input
+            name="email"
+            type="email"
+            placeholder="Email"
+          />
+          <Input
+            name="password"
+            type="password"
+            placeholder="Password"
+          />       
+          <Input
+            name="desc"
+          textarea={true}
+            placeholder="Desc"
+          />       
+        </div>
+      </FormDesign>
+
+
+
+---------------------------------cleenup function
+   useEffect(() => {
+    const timer = setTimeout(next,5000)
+        api.start({
+            x: -move + "%"
+        })
+
+        return ()=>{
+            clearTimeout(timer)
+        }
+    }, [move])
+
+
+-------------------------ch-20 
+react redux
+me jitney bhi Middleware hun gey in ko define kia jaye ga 
+vareable ka name root bhi rakh saktey hen ya koi or bhi rakh saktey hen
+or root name ka vareable bana ke combineReducers ko cal ker ke
+tamam reducer is me rakhney hen 
+
+
+const middlewares = applyMiddleware(logger,thunk)
+
+const root = combineReducers({
+    myFirstreducer : myFirstreducer,
+    mySecreducer : mySecreducer
+
+})
+
+
+ager hum middlewares ko store me ase add karen gey to ye galat ho ga
+const store = createStore(root,{},logger,thunk)
+middlewares ko add kerney ke leye 4 number perameter wo bhi store ke ander 
+nahi laga saktey
+is leye zarori hey keh 
+
+const middlewares = applyMiddleware(logger,thunk)
+jitney bhi middlewares hen in ko applyMiddleware me rakha jaye 
+
+store ko hum layout.js me nahi use ker saktey q keh ye file 
+server ki file hey or hum is file me direct kisi bhi kisem ka provider direct use 
+nahi ker saktey 
+
+is ke leye zarori hey alag se compunent bata ke is me provider ko claa ker ke store 
+de den or or is compunent file ko client user bana den 
+or is is compunent ko layout.js me call ker ke children ko rap ker den 
+
+"use client"
+import { Provider } from "react-redux";
+import store from "../store";
+
+const AuthProvider = ({children})=>{
+   return(
+    <Provider store={store}>
+         {children}
+    </Provider>
+   )
+}
+
+export default AuthProvider
+
+or is compunent ko layout.js me import ker ke children ko rap ker den
+
+jesa is exemple me bataya gaya hey 
+    export default function RootLayout({ children }) {
+      return (
+        <html lang="en">
+          <body className={inter.className}>
+            <AuthProvider>
+                {children}
+            </AuthProvider>
+          </body>
+        </html>
+      )
+    }
+
+    -----------------------------ch-21 
+    video js
+
+    "use client"
+import videojs from "video.js";
+import "video.js/dist/video-js.css"
+import {useRef , useEffect} from "react";
+import { Button } from "../../Tailwind/page";
+import 'video.js/dist/video-js.css';
+
+// City
+import '@videojs/themes/dist/city/index.css';
+
+// Fantasy
+import '@videojs/themes/dist/fantasy/index.css';
+
+// Forest
+import '@videojs/themes/dist/forest/index.css';
+
+// Sea
+import '@videojs/themes/dist/sea/index.css';
+
+const VideoPlayer = ()=>{
+    const video = useRef()
+    const player = useRef(null)
+
+    const options = {
+        controls : true,
+        sources : [
+            {
+                src : "/demo.mp4",
+                type : "video/mp4"
+            }
+        ],
+        fluid : true,
+        playbackRates : [0.5,1,1.5,2,2.5,3],
+        autoplay : true
+   
+    }
+
+    const update = ()=>{
+        player.current.src({
+            src : "/test.mp4",
+            type : "video/mp4"
+        })
+    }
+
+       useEffect(()=>{
+      player.current =  videojs(video.current,options)
+       },[])
+
+       const uploadAndPlay = (e)=>{
+         const input =   e.target;
+            const file = input.files[0];
+            const url = URL.createObjectURL(file);
+            player.current.src({
+                src : url,
+                type : "video/mp4"
+            })
+       }
+    const design = (
+        <>
+            <div className="w-6/12">
+                 <video 
+                 ref={video}
+                 className="video-js 
+                  vjs-big-play-centered 
+                  vjs-theme-sea" 
+                  />
+
+                    <Button 
+                    onClick={update} 
+                        className="py-5 m-3">
+                          UPDATE VIDEO
+                    </Button>
+
+                 
+                        <input type="file" onChange={uploadAndPlay}  />
+                    
+            </div>
+        </>
+    );
+    return design
+}
+
+export default VideoPlayer 
+
+
+------------------------------ch-30 
+cookies accept
+   // console.log(request.cookies.get("token")?.value)
+   const {value} = request.cookies.get("token");
+   if(value === "1234567890"){
+        return {
+            data : "login request success",
+            status : 200
+        }
+   }else{
+        return {
+            data : "login request Failed",
+            status : 401
+        }
+   }
+
