@@ -974,7 +974,7 @@ cookies accept
         return {
             data : "login request success",
             status : 200
-        }
+        }           
    }else{
         return {
             data : "login request Failed",
@@ -982,3 +982,216 @@ cookies accept
         }
    }
 
+   ------------------- ch 31 ----------------
+   const options = {
+    Bucket : "stream-storage-app-pk"
+}
+
+ options['Delimiter'] = "/";
+
+  
+ options me ager Delimiter set ker deya to is bucket me se folder access 
+ nahi ho ga or humey kisi function me folder bhi access 
+ kerna hey or kahi pe nahi access kerna hey folder ko 
+ jis jagha folder access nahi kerna waha pe option me delimiter set ker den gey
+
+ ------------------options.Prefix = 'demo'----------------------
+  options.Prefix = 'demo'
+
+   options me prefix me folder name dena ho ga bucket se file ko access nahi karey ga 
+   balkey bucket me demo name ke folder me se sara content de ga  sirf
+   is folder se content de ga jis ka name ap ne deya hey or ye folder bucket me hona chahey
+   ------------ const {keys} = params; -------
+   route me jab hum extra perameter bhajtey hen in ko resive kerney ke leye nextjs me
+   route ke ander 1 or folder banaya jata hey jis ka name [id].js ,,, [...id].js
+   banatay hen ager to 1 perameter ho to [id].js ke name se folder banatey hen 
+   or ager 1 se zeada perameter hen to [...id].js ke name se folder baney gey [anyname].js
+   ya apni merzi ke name se bhi bana saktay hen 
+   is folder me getrequest, put request delete request jis me extra perameter 
+   ya koi bhi request ho extra information ko access kia jata hey 
+
+
+   exemple  
+   
+    export const GET = async (request,{params})=>{
+ const response = await fetchById(request,params)
+    const {data,status} = response
+    return NextResponse.json({data},{status})
+
+}
+
+controller me resive kia jata hey 
+
+
+export const fetchById = async (request,params)=>{
+    const {keys} = params;
+    const path = keys.join("/");
+    options.Key = path;
+
+        try {
+             await s3.headObject(options).promise();
+             options.Expires = 60
+         const url =  s3.getSignedUrl('getObject',options)
+         return{
+            data : {
+                data : url,
+                message : "success"
+            },
+            status : 200
+        }
+        } catch (error) {
+            return{
+                data : {
+                    message : "Failed !",
+                    error : error
+                },
+                status : 404
+            }
+        }
+
+  
+}
+------------------------const {keys} = params;-----------
+    const path = keys.join("/");
+     options.Key = path;
+
+perameter se resive kerney ke leye key name ka folder banaya tha system folder name ko key name me
+convert ker dey ga 
+jo bhi perams me milta hey wo array ki form me hota hey 
+is ko path me convert kerney ke leye
+key.join laga ke / add ker den gey to arrray string me convert ho jaye ga
+or phir options me key name ke property bana ke key ka first alphabet larg me set 
+kerna hey or is me jo new url banya hey wo set ker den gey 
+
+-------------------- options.Expires = 60 ------------
+jo bhi  options.Expires = 60 
+me rakha jaye ga is ka metlab hey jo bhi getSignedUrl bana rahey hen is ko expire
+kerney ka time hey is ke bad ye url work nahi karey ga 
+jis url ko expire kerna ho kuch time ke baad is url ko getSignedUrl me jo option den gey is me 
+ const url =  s3.getSignedUrl('getObject',options)
+ getSignedUrl 1 different url create kerta hey or ye url humey 
+ kahen pe bhi use ker saktey hen
+
+
+   -----------------await s3.headObject(options).promise();-------
+   hum jab bucket me object ko check kerna ho keh wo object bucket me hey ya nahi 
+   await s3.headObject(options).promise();
+   to s3 se head object me options den gey options me Key me ki property jis me 
+   is file ka address ho ga jis ko hum request ker rahey hen 
+
+-----------ch 32 --------------
+jab url api ke sath koi bhi extra perameter bhajtey hen to next js me wo
+ extra key ya perameter alag
+route pe chala jata hey jaha pe perameter ko resive kia jata hey 
+ager hum chahtey hen roote change na ho bulkey api ke bad jo bhi perameter hun in ko resive 
+kia ja sakey to perams Query set kerna ho gi 
+----------------- search se params se data nikalana ---------
+get ke zarye bhi or loop chala ke bhi search params se data nkelna
+
+ const query ={}
+    const {searchParams} = new URL(request.url)
+    // console.log(searchParams.get('limit'))
+    // console.log(searchParams.get('folder'))
+    for(const [key,value] of searchParams){
+        query[key] = value
+    }
+    console.log(query)
+
+      options.MaxKeys = query.limit ? query.limit : null;
+    options.Prefix = query.folder ? query.folder : null;
+
+    query me limit bhejney se itna he data aye ga  jitna limit me deya ho ga 
+    ager limit ke sath folder name bhi bhajen gey to jis folder ka name deya ho ga 
+    ise folder se limit ke hesab se data aye ga
+    
+==============delete ==================
+    const deleteRes = await s3.deleteObject(options).promise();
+    ye methood sirf file delete karey ga na keh folder q keh is me 
+    delete object use huva hey 
+    ager folder delete kerna hey to pehley folder ko empty kerna ho ga 
+    phir folder ko delete kerney ki query chaley gi 
+
+
+      const { keys } = params;
+    const path = keys.join("/");
+    options.Key = path;
+
+    try {
+        await s3.headObject(options).promise();
+        const deleteRes = await s3.deleteObject(options).promise();
+        return {
+            data: {
+                message: "success",
+                data : deleteRes
+            },
+            status: 200
+        }
+    } catch (error) {
+        return {
+            data: {
+                message: "Failed !",
+                error: error
+            },
+            status: 404
+        }
+    }
+
+    --------------------- single file uploader-----------------
+    const onSubmit = async (values)=>{
+    const upload =  useS3({
+        thumbnail : values.thumbnail,
+        video : values.video
+    })
+
+    const uploading = await upload();
+    uploading.on('httpUploadProgress',(e)=>{
+    let loaded = e.loaded;
+    let totel = e.total
+    let perc = Math.floor((loaded * 100) / totel)
+    console.log(perc + "%")
+
+    })
+    console.log(uploading) 
+    try {
+       const file = await uploading.promise();
+       console.log(file)
+    } catch (error) {
+        console.log(error)
+    }
+    
+}
+
+
+s3 function resiver----------------------------------
+import AWS from "aws-sdk"
+const s3 = new AWS.S3({
+    region: 'ap-south-1',
+    accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY
+})
+
+const Bucket = "stream-storage-app-pk"
+
+const useS3 = (files) => {
+    const upload = async () => {
+        const options = {
+            Bucket: Bucket,
+            Body: files.video,
+            Key: files.video.name
+        }
+        return s3.upload(options)
+    }
+    return upload
+}
+
+export default useS3
+
+--------------------------- multi file uploader in s3 ------------
+
+
+------------------------jwt verify--------------
+jwt verefy ab next me worak nahi kerta is leye josh install kerna ho ga 
+
+access cookie me ager {httpOnely : true} karen gey to ye cookie 
+server pe hi access ho gi
+warna her koi console me ja ke document.cookies ker ke cookie ko access ker le ga

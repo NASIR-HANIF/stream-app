@@ -1,3 +1,4 @@
+"use client";
 import { Button, Icon } from "../page";
 import { useEffect, useState } from "react";
 import { useSprings, animated } from "@react-spring/web";

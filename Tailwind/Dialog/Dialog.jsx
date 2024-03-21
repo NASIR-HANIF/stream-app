@@ -11,6 +11,7 @@ const Dialog = ({title="",children})=>{
             title={title}
             show={DialogReducer.open}
             onConfirm={()=>{}}
+            showConfirm={false}
             >
              <Icon  
              onClick={()=>dispatch({

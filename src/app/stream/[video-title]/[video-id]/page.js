@@ -1,3 +1,4 @@
+'use client';
 import VideoPlayer from "../../../../../Components/VideoPlayer/VideoPlayer";
 
 

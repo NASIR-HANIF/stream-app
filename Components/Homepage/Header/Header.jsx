@@ -1,3 +1,4 @@
+"use client";
 import { Carousel, Button, Icon } from "../../../Tailwind/page";
 const Header = () => {
     const Caption = ({ data }) => {

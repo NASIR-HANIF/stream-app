@@ -35,6 +35,7 @@ const Footer = ()=>{
                             <Image src="/app-store.png" 
                             width={190}
                             height={60}
+                            alt="app-store"
                             />
                         </button>
                     </div>

@@ -29,8 +29,8 @@ const VideoPlayer = () => {
         controls: true,
         sources: [
             {
-                src: "/todays/index.m3u8",
-                type: "application/x-mpegURL"
+                src: "https://stream-storage-app-pk.s3.ap-south-1.amazonaws.com/stream/original/test-four/test-four.mpd",
+                type: "application/dash+xml"
             }
         ],
         fluid: true,

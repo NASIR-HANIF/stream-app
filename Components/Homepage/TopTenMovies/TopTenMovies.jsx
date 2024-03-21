@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const TopTenMovies = ()=>{
 
-    const {AnimationReducer} = useSelector(response => response);
+    const AnimationReducer = useSelector(response => response.AnimationReducer);
 
    const {image} = AnimationReducer
 
