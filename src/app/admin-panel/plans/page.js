@@ -1,13 +1,18 @@
 import AdminPanel from "../../../../Components/AdminPanel/AdminPanel";
 import Plans from "../../../../Components/AdminPanel/Plans/Plans";
-const Page = ()=>{
-    const design =(
+import Head from "next/head";
+const Page = () => {
+    const design = (
         <>
-           
+
             <AdminPanel>
-                  <Plans />
+                <Head>
+                    <title>Plans - Adminpanel StreamJust - Watch TV Shows Online, Watch Movies Online </title>
+                    <meta name="robots" content="noindex,nofollow" key="robots" />
+                </Head>
+                <Plans />
             </AdminPanel>
-           
+
         </>
     );
     return design

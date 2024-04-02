@@ -23,10 +23,6 @@ const {data,status} = useSession();
                 href: "/videos"
             },
             {
-                label: "BLOG",
-                href: "/blog"
-            },
-            {
                 label: "PLANS",
                 href: "/plans"
             },

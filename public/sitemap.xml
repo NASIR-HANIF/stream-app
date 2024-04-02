@@ -1,0 +1,32 @@
+<xml version="1.0" encoding="UTF-8">
+    <urlsetxmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        <url>
+            <loc>http://www.starmjust.com</loc>
+            <lastmod>2024-06-01</lastmod>
+        </url>
+        <url>
+            <loc>http://www.starmjust.com/movies</loc>
+            <lastmod>2024-06-01</lastmod>
+        </url>
+        <url>
+            <loc>http://www.starmjust.com/videos</loc>
+            <lastmod>2024-06-01</lastmod>
+        </url>
+        <url>
+            <loc>http://www.starmjust.com/plans</loc>
+            <lastmod>2024-06-01</lastmod>
+        </url>
+        <url>
+            <loc>http://www.starmjust.com/contact</loc>
+            <lastmod>2024-06-01</lastmod>
+        </url>
+        <url>
+            <loc>http://www.starmjust.com/register</loc>
+            <lastmod>2024-06-01</lastmod>
+        </url>
+        <url>
+            <loc>http://www.starmjust.com/login</loc>
+            <lastmod>2024-06-01</lastmod>
+        </url>
+    </urlsetxmlns=>
+</xml>

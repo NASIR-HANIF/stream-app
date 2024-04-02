@@ -8,39 +8,35 @@ import {
 import { nanoid } from "nanoid";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import useSWR from "swr";
 
 
-const Plans = () => {
-
+const Plans = ({ plans }) => {
+    const pathname = usePathname();
     // const [Razorpay] = useRazorpay();
 
-    const router = useRouter();
-    const [data, setData] = useState(null)
-    const { data: session } = useSession();
 
-
-
-    // fetch plans
-    const getdata = async () => {
+    const getData = async (url) => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/api/plan`);
-            if (!response.ok) {
-                throw new Error("Failed to fetch data !");
-            }
-            // return await response.json();
-            const mdata = await response.json();
-            setData(mdata)
+            const response = await axios({
+                method: "get",
+                url: url
+            })
+            return response.data.data;
         } catch (error) {
-            return error
+            return error.response.data;
         }
-    };
+    }
 
-    useEffect(() => {
-        getdata();
-
-    }, [])
+    const router = useRouter();
+    const { data: session } = useSession();
+    const { data: userPlan, error: userError } = useSWR(
+        session ? `/api/purchase/${session.user.email}` : null,
+        session ? getData : null,
+        { refreshInterval: 5000 }
+    );
 
 
     const colors = [
@@ -103,6 +99,7 @@ const Plans = () => {
                 purchaseEntry({
                     email: session.user.email,
                     planId: item._id,
+                    emi : item.emi,
                     paymentId: response.razorpay_payment_id,
                     orderId: response.razorpay_order_id,
                     signature: response.razorpay_signature
@@ -133,6 +130,7 @@ const Plans = () => {
         purchaseEntry({
             email: session.user.email,
             planId: item._id,
+            emi: item.emi,
             paymentId: `pay_${razorpay_payment_id}`,
             orderId: `order_${razorpay_order_id}`,
             signature: razorpay_signature
@@ -161,18 +159,41 @@ const Plans = () => {
                     }}>
                         {item.desc}
                     </pre>
-                    <Button
-                        style={{
-                            background: "red",
-                            color: "white",
-                            ...colors[index]
-                        }}
-                        className="my-5 rounded-lg"
-                        theme="secondary"
-                        onClick={() => purchase(item)}
-                    >
-                        BUY NOW
-                    </Button>
+                    {
+                        (userPlan && userPlan.plan.planId === item._id)
+                            ? userPlan.diff >= 0
+                                ?
+                                <h1  className="text-2xl font-bold text-teal-500 mt-3">
+                                    {`${userPlan.diff} Days Remaining`}
+                                </h1>
+                                :
+                                <Button
+                                    style={{
+                                        background: "red",
+                                        color: "white",
+                                        ...colors[index]
+                                    }}
+                                    className="my-5 rounded-lg"
+                                    theme="secondary"
+                                    onClick={() => purchase(item)}
+                                >
+                                    BUY NOW
+                                </Button>
+                            :
+                            <Button
+                                style={{
+                                    background: "red",
+                                    color: "white",
+                                    ...colors[index]
+                                }}
+                                className="my-5 rounded-lg"
+                                theme="secondary"
+                                onClick={() => purchase(item)}
+                            >
+                                BUY NOW
+                            </Button>
+                    }
+
                     <div
                         className="text-2xl font-bold uppercase"
                         style={{
@@ -197,9 +218,14 @@ const Plans = () => {
 
     const design = (
         <>
+            <h1 className="text-4xl text-center font-bold capitalize p-5">
+                {pathname.slice(1)}
+            </h1>
+
             <div className="grid sm:grid-cols-3 gap-8 sm:gap-12 p-8 sm:p-16">
+
                 {
-                    data && data.data.map((item, index) => {
+                    plans && plans.map((item, index) => {
                         return (
                             <AllPlans
                                 item={item}

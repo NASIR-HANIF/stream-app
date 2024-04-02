@@ -4,49 +4,12 @@ import { useSelector } from "react-redux";
 
 
 
-const TopTenMovies = ()=>{
+const TopTenMovies = ({latest})=>{
 
     const AnimationReducer = useSelector(response => response.AnimationReducer);
+    const {image} = AnimationReducer
 
-   const {image} = AnimationReducer
-
-    const data = [
-        {
-            thumbnail : "sanddust2.jpg",
-            title : "JUST STREAM",
-            duration : "02:05:25"
-        },
-        {
-            thumbnail : "movie-abc.png",
-            title : "JUST STREAM",
-            duration : "02:05:25"
-        },
-        {
-            thumbnail : "movie-xyz.png",
-            title : "STREAM JUST",
-            duration : "02:05:25"
-        },
-        {
-            thumbnail : "sanddust2.jpg",
-            title : "JUST STREAM",
-            duration : "02:05:25"
-        },
-        {
-            thumbnail : "sanddust2.jpg",
-            title : "JUST STREAM",
-            duration : "02:05:25"
-        },
-        {
-            thumbnail : "sanddust2.jpg",
-            title : "JUST STREAM",
-            duration : "02:05:25"
-        },
-        {
-            thumbnail : "sanddust2.jpg",
-            title : "JUST STREAM",
-            duration : "02:05:25"
-        },
-    ]
+  
     const design = (
         <>
             <div  style={{
@@ -68,7 +31,7 @@ const TopTenMovies = ()=>{
                         }}>
                             <Slider 
                             vertical={true}
-                            data={data} />
+                            data={latest} />
                         </div>
                 </div>
             </div>

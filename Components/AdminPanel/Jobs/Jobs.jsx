@@ -56,6 +56,19 @@ const Jobs = () => {
         }
     }
 
+    // makeActive
+const makeActive = async (id)=>{
+    try {
+        await axios({
+            method : "patch",
+            url : "/api/movies/"+id
+        });
+        alert("success")
+    } catch (error) {
+        alert("Failed")
+    }
+}
+
     const Tr = ({ item, index }) => {
         const input = item.Settings.Inputs[0].FileInput.split("/");
         const tr = (
@@ -104,6 +117,13 @@ const Jobs = () => {
                                 </div>
                                 :
                                 null
+                        }
+                        {
+                            item.Status === "COMPLETE" ?
+                            <Button 
+                            onClick={()=>makeActive(item.Id)}
+                            theme="success" >Make Active</Button>
+                            : null
                         }
                     </td>
                 </tr>

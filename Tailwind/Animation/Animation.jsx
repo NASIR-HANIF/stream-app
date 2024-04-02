@@ -6,6 +6,7 @@ import { useGesture, useDrag } from "react-use-gesture";
 import Style from './Animation.module.css';
 import useMeasure from "react-use-measure";
 import { useDispatch } from "react-redux";
+import Link from "next/link";
 
 export const Carousel = ({
     data,
@@ -246,17 +247,24 @@ const view = (index)=>{
                         ...styles,
                         width: vertical ? "100%" : "25%",
                         height: "181px",
-                        background: `url(${data[index].thumbnail})`,
+                        background: `url(${process.env.NEXT_PUBLIC_CLOUDFRONT}/${data[index].thumbnail})`,
                         backgroundSize: "cover"
                     }}>
                     <div className={` h-full flex items-center ${Style['caption-bg']}`}>
                         <div className="px-4 text-white">
                             <h1 className="text-xl">{data[index].title}</h1>
                             <p>{data[index].duration}</p>
-                            <Button theme="error" className="flex items-center gap-2 text-xs px-3 mt-3">
-                                <Icon>play_circle</Icon>
-                                PLAY NOW
-                            </Button>
+                          <Link 
+                          href={{
+                            pathname : "/videos/"+data[index].title.toLowerCase().split(" ").join("-"),
+                            query : data[index]
+                        }}  passHref
+                          >
+                                <Button theme="error" className="flex items-center gap-2 text-xs px-3 mt-3">
+                                    <Icon>play_circle</Icon>
+                                    PLAY NOW
+                                </Button>
+                          </Link>
                         </div>
                     </div>
                 </animated.div>

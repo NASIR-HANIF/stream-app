@@ -1,4 +1,5 @@
 import AWS from "../module/aws.module";
+import { secureAdminMiddleware } from "../middleware/secure-admin-api-middleware";
 
 const s3 = new AWS.S3();
 const options = {
@@ -44,28 +45,40 @@ export const fetch = async (request) => {
 }
 
 export const fetchById = async (request, params) => {
-    const { keys } = params;
-    const path = keys.join("/");
-    options.Key = path;
+
 
     try {
-        await s3.headObject(options).promise();
-        options.Expires = 60
-        const url = s3.getSignedUrl('getObject', options)
-        return {
-            data: {
-                data: url,
-                message: "success"
-            },
-            status: 200
+        await secureAdminMiddleware(request);
+
+        const { keys } = params;
+        const path = keys.join("/");
+        options.Key = path;
+
+        try {
+            await s3.headObject(options).promise();
+            options.Expires = 60
+            const url = s3.getSignedUrl('getObject', options)
+            return {
+                data: {
+                    data: url,
+                    message: "success"
+                },
+                status: 200
+            }
+        } catch (error) {
+            return {
+                data: {
+                    message: "Failed !",
+                    error: error
+                },
+                status: 404
+            }
         }
+
     } catch (error) {
         return {
-            data: {
-                message: "Failed !",
-                error: error
-            },
-            status: 404
+            data: { message: "Invalid User" },
+            status: 401
         }
     }
 
@@ -73,45 +86,82 @@ export const fetchById = async (request, params) => {
 }
 
 export const create = async (request) => {
-    return {
-        data: "Post requested",
-        status: 200
+
+    try {
+        await secureAdminMiddleware(request);
+        return {
+            data: "Post requested",
+            status: 200
+        }
+
+    } catch (error) {
+        return {
+            data: { message: "Invalid User" },
+            status: 401
+        }
     }
+
+
+
 }
 
 export const update = async (request, params) => {
-    const data = await request.json();
-    return {
-        data: {
-            data,
-            params
-        },
-        status: 200
-    }
-}
-
-export const trash = async (request, params) => {
-    const { keys } = params;
-    const path = keys.join("/");
-    options.Key = path;
 
     try {
-        await s3.headObject(options).promise();
-        const deleteRes = await s3.deleteObject(options).promise();
+        await secureAdminMiddleware(request);
+        const data = await request.json();
         return {
             data: {
-                message: "success",
-                data : deleteRes
+                data,
+                params
             },
             status: 200
         }
     } catch (error) {
         return {
-            data: {
-                message: "Failed !",
-                error: error
-            },
-            status: 404
+            data: { message: "Invalid User" },
+            status: 401
         }
     }
+
+}
+
+export const trash = async (request, params) => {
+
+
+    try {
+        await secureAdminMiddleware(request);
+
+        const { keys } = params;
+        const path = keys.join("/");
+        options.Key = path;
+
+        try {
+            await s3.headObject(options).promise();
+            const deleteRes = await s3.deleteObject(options).promise();
+            return {
+                data: {
+                    message: "success",
+                    data: deleteRes
+                },
+                status: 200
+            }
+        } catch (error) {
+            return {
+                data: {
+                    message: "Failed !",
+                    error: error
+                },
+                status: 404
+            }
+        }
+
+    } catch (error) {
+        return {
+            data: { message: "Invalid User" },
+            status: 401
+        }
+    }
+
+
 }

@@ -21,7 +21,7 @@ import '@videojs/themes/dist/forest/index.css';
 // Sea
 // import '@videojs/themes/dist/sea/index.css';
 
-const VideoPlayer = () => {
+const VideoPlayer = ({params}) => {
     const video = useRef()
     const player = useRef(null)
 
@@ -29,22 +29,18 @@ const VideoPlayer = () => {
         controls: true,
         sources: [
             {
-                src: "https://stream-storage-app-pk.s3.ap-south-1.amazonaws.com/stream/original/test-four/test-four.mpd",
-                type: "application/dash+xml"
+                src: `${process.env.NEXT_PUBLIC_CLOUDFRONT}/stream/original/${params.title}/${params.title}.m3u8`,
+                type: "application/x-mpegURL"
             }
         ],
         fluid: true,
         playbackRates: [0.5, 1, 1.5, 2, 2.5, 3],
-        autoplay: true
+        poster : process.env.NEXT_PUBLIC_CLOUDFRONT+"/"+params.thumbnail,
+        autoplay : false
 
     }
 
-    const update = () => {
-        player.current.src({
-            src: "/test.mp4",
-            type: "video/mp4"
-        })
-    }
+
 
     const onReady = (v_player) => {
         // v_player.seekButtons({
@@ -56,9 +52,9 @@ const VideoPlayer = () => {
         })
 
         v_player.hotkeys({
-            allwayesCaptureHotKeys :true,
-            seekStep : 10,
-            enableValumeScroll : true
+            allwayesCaptureHotKeys: true,
+            seekStep: 10,
+            enableValumeScroll: true
         })
     }
 
@@ -71,36 +67,16 @@ const VideoPlayer = () => {
         )
     }, [])
 
-    const uploadAndPlay = (e) => {
-        const input = e.target;
-        const file = input.files[0];
-        const url = URL.createObjectURL(file);
-        player.current.src({
-            src: url,
-            type: "video/mp4"
-        })
-    }
+
     const design = (
         <>
-            <div className="w-6/12">
-                <video
-                    ref={video}
-                    className="video-js 
+
+            <video
+                ref={video}
+                className="video-js 
                   vjs-big-play-centered 
                   vjs-theme-forest"
-                />
-
-                <Button
-                    onClick={update}
-                    className="py-5 m-3">
-                    UPDATE VIDEO
-                </Button>
-
-                <label >
-                    <input type="file" onChange={uploadAndPlay} />
-                </label>
-
-            </div>
+            />
         </>
     );
     return design

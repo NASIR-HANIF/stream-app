@@ -1,0 +1,9 @@
+  try {
+        await secureAdminMiddleware(request);
+      
+    } catch (error) {
+        return {
+            data: { message: "Invalid User" },
+            status: 401
+        }
+    }
