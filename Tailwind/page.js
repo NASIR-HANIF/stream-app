@@ -1,7 +1,7 @@
 import Button from "./Button/Button";
 import Card from "./Card/Card";
-// import Navbar from "./Navbar/Navbar";
-import Navbar from "./Navbar2/Navbar2";
+ import Navbar from "./Navbar/Navbar";
+// import Navbar from "./Navbar2/Navbar2";
 import { Fade , Zoom ,Expand , Flip } from "./Effect/Effect";
 import { PatternOne ,PatternTwo} from "./Patterns/Patterns";
 import Icon from "./Icon/Icon";

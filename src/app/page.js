@@ -7,11 +7,15 @@ import Head from "next/head";
 
 
 const getData = async () => {
+try {
   const response = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/api/movies/latest`);
   if (!response) {
     throw new Error("Failed to Fetch Data !")
   }
   return await response.json();
+} catch (error) {
+  return [];
+}
 
 }
 
@@ -31,7 +35,7 @@ const Page = async () => {
           <meta property="og:description" content="TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more." key="ogdesc" />
           <meta property="og:image" content="https://th.bing.com/th/id/OIP.g-KcgY9WQJ4iJYckXWU8AgHaHa?rs=1&pid=ImgDetMain" key="ogimage" />
         </Head>
-        <Homepage latestMovies={data && data.data} />
+        <Homepage latestMovies={(data && data.data) ? data.data : []} />
       </Template>
     </>
   );

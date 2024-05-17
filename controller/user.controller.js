@@ -83,6 +83,7 @@ export const signup = async (request) => {
             status: 200
         }
     } catch (error) {
+       
         return {
             data: error,
             status: 424

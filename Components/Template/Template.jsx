@@ -102,7 +102,6 @@ const {data,status} = useSession();
                 menu={menus}
                 toolbar={toolbars}
                 variant="three"
-
             />
 
             <div>

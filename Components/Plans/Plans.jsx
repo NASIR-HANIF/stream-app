@@ -26,7 +26,7 @@ const Plans = ({ plans }) => {
             })
             return response.data.data;
         } catch (error) {
-            return error.response.data;
+            return null
         }
     }
 
@@ -66,14 +66,19 @@ const Plans = ({ plans }) => {
                 url: "/api/purchase",
                 data: data
             })
-            console.log(response.data.data)
+           
         } catch (error) {
             console.log(error.response.data)
         }
     }
+
+    // payment gateway show and make payment
     const purchase = async (item) => {
         if (!session) {
             return router.push("/login")
+        }
+        if(session.user.role === "ADMIN"){
+            return router.push("/")
         }
         const order = await axios({
             method: "post",
@@ -84,7 +89,7 @@ const Plans = ({ plans }) => {
         });
 
         const { id } = order.data.data;
-        console.log("orderid= " + id)
+        // console.log("orderid= " + id)
 
         /*
         const options = {

@@ -12,11 +12,11 @@ import Template from "../../../Components/Template/Template";
         if (!response.ok) {
             throw new Error("Failed to fetch data !");
         }
-        // return await response.json();
+        
         return await response.json();
       
     } catch (error) {
-        return error
+        return [];
     }
 };
 
@@ -33,7 +33,7 @@ const page = async () => {
           <meta property="og:description" content="TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more." key="ogdesc" />
           <meta property="og:image" content="https://th.bing.com/th/id/OIP.g-KcgY9WQJ4iJYckXWU8AgHaHa?rs=1&pid=ImgDetMain" key="ogimage" />
         </Head>
-        <Plans  plans={data && data.data} />
+        <Plans  plans={(data && data.data) ? data.data : []} />
       </Template>
     </>
   );

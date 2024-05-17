@@ -6,11 +6,15 @@ import Videos from "../../../Components/Videos/Videos";
 
 
 const getData = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/api/movies/active`);
-    if (!response) {
-        throw new Error("Failed to Fetch Data !")
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_ENDPOINT}/api/movies/active`);
+        if (!response.ok) {
+            throw new Error("Failed to Fetch Data !")
+        }
+        return await response.json();
+    } catch (error) {
+        return [];
     }
-    return await response.json();
 
 }
 
@@ -28,7 +32,9 @@ export const Page = async () => {
                     <meta property="og:description" content="TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more." key="ogdesc" />
                     <meta property="og:image" content="https://th.bing.com/th/id/OIP.g-KcgY9WQJ4iJYckXWU8AgHaHa?rs=1&pid=ImgDetMain" key="ogimage" />
                 </Head>
-                <Videos videos={data && data.data} />
+             {
+                data && data.data ?    <Videos videos={data && data.data} /> : null
+             }
             </Template>
         </>
     );

@@ -2,15 +2,58 @@
 import Head from "next/head";
 import Template from "../../../../Components/Template/Template";
 import VideoPlayer from "../../../../Components/VideoPlayer/VideoPlayer";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+import useSWR from "swr";
 
 export const Page = () => {
+
+  // check user login or not
+  const { data: session } = useSession();
+  if (!session) {
+    return redirect("/login")
+  }
+  // check user perchase plan request
+  const getData = async (url) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: url
+      });
+      return response.data.data;
+    } catch (error) {
+      return redirect("/plans")
+    }
+  }
+
+  const { data: userPlan, error: userError } = useSWR(
+    session ? `/api/purchase/${session.user.email}` : null,
+    session ? getData : null
+  )
+
+  // if user has admin no requrire checking have plan
+
+  if (session.user.role !== "ADMIN") {
+    // if user have no plan redirect plan page
+
+    if (!userPlan) {
+      return redirect("/plans");
+    }
+    // check plan validity
+    const { diff } = userPlan;
+    if (diff < 0) {
+      return redirect("/plans");
+    }
+  }
+
   const params = useSearchParams();
   const title = params.get("title");
   const desc = params.get("desc");
   const duration = params.get("duration");
   const thumbnail = params.get("thumbnail");
   const category = params.get("category");
+
   const data = {
     title,
     desc,

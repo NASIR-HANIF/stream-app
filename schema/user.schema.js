@@ -28,6 +28,13 @@ const userSchema = new Schema({
   
 })
 
+userSchema.pre("save", async function(next){
+const isUser = await mongoose.model("user").findOne({email : this.email})
+if(isUser) return next(new Error("User Already Exists !"))
+next();
+
+})
+
 // mongoss middleware
 
 userSchema.pre('save', async function(next){

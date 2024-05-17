@@ -107,8 +107,7 @@ export const Carousel = ({
 
                 {/* left label counter */}
                 <div
-                    className="absolute 
-                 left-0 top-0 p-5 h-full flex flex-col justify-between">
+                    className="absolute left-0 top-0 p-5 h-full flex flex-col justify-between">
                     {
                         counting ? <label>{count + 1}/{data.length}</label> : <label></label>
                     }

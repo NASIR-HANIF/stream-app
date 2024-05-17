@@ -47,9 +47,9 @@ const VideoPlayer = ({params}) => {
         //     forward: 10,
         //     back: 10
         //   });
-        v_player.hlsQualitySelector({
-            displayCurrentQuality: true,
-        })
+        // v_player.hlsQualitySelector({
+        //     displayCurrentQuality: true,
+        // })
 
         v_player.hotkeys({
             allwayesCaptureHotKeys: true,

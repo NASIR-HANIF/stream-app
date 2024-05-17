@@ -43,7 +43,7 @@ const sample = {
         one: "flex flex-col sm:flex-row sm:items-center sm:justify-start gap-12",
         two: "flex flex-col sm:flex-row sm:items-center sm:justify-end gap-12",
         three: "flex flex-col sm:flex-row sm:items-center sm:justify-between",
-        four: "flex flex-col sm:flex-row sm:items-center sm:justify-around",
+        four: "flex flex-col sm:flex-row sm:items-center sm:justify-around", 
         five: "flex flex-col sm:flex-row sm:items-center sm:justify-evenly",
     }
 }
@@ -121,7 +121,7 @@ const Navbar = ({
                             })
                         }
 
-                    </div   >
+                    </div>
                     {
                         toolbar ? <div className="hidden sm:flex gap-3 p-4">
                                 {
@@ -139,7 +139,6 @@ const Navbar = ({
 
 
                 {/* min device */}
-
 
             <Expand state={show} 
             className="fixed bottom-0 left-0 w-full bg-slate-900 z-50"

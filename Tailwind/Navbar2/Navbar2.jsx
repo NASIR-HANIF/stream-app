@@ -42,7 +42,7 @@ const sample = {
         one: "flex flex-col sm:flex-row sm:items-center sm:justify-start gap-12",
         two: "flex flex-colsm:flex-row  sm:items-center sm:justify-end",
         three: "flex flex-col sm:flex-row sm:items-center sm:justify-between",
-        four: "flex flex-col sm:flex-row  sm:items-center sm:justify-around",
+        four: "flex flex-col sm:flex-row  sm:items-center sm:justify-around", 
         five: "flex flex-col sm:flex-row sm:items-center sm:justify-evenly"
     }
 }
@@ -93,12 +93,11 @@ const Navbar2 = ({
                 ${stickyControl ? sample.fixed : null}
         `}>
                 {/* <div className="sm:w-4/5 mx-auto border"> */}
-                <div className={
+                <div className={`
+                    ${sample.variant[variant]} 
+                    ${fullWidth ? null : sample.fixedWidth}
                     `
-            ${sample.variant[variant]} 
-            ${fullWidth ? null : sample.fixedWidth}
-            `
-                }>
+                     }>
                     <div className="flex justify-between mr-4 items-center">
                         <Link 
                           className={sample[theme].link}
