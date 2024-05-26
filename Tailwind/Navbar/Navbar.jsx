@@ -8,6 +8,10 @@ const sample = {
     // fixedUp : "fixed top-0 left-0 w-full animate__animated animate__fadeInDown",
     fixedWidth: "sm:w-4/5 mx-auto",
     dark : {
+        nav : "bg-slate-900",
+        link : "text-white py-4 sm:py-4 px-2 sm:px-2 md:px-3 hover:bg-slate-800 hover:text-white"
+    },
+    dark2 : {
         nav : "bg-slate-900 sm:px-4",
         link : "text-white py-4 sm:py-6 px-8 sm:px-10 hover:bg-slate-800 hover:text-white"
     },
@@ -114,7 +118,8 @@ const Navbar = ({
                   </div>
 
 
-                    <div className="hidden sm:flex flex-col sm:flex-row">
+                    {/* <div className="hidden sm:flex flex-col sm:flex-row"> */}
+                    <div className="hidden  sm:flex flex-col sm:flex-row md:gap-x-4 ">
                         {
                             menu.link.map((item, index) => {
                                 return <Menus key={index} item={item} />

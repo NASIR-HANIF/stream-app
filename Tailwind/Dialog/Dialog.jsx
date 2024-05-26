@@ -1,4 +1,5 @@
-import SweetAlert from "react-bootstrap-sweetalert";
+// import SweetAlert from "react-bootstrap-sweetalert";
+import SweetAlert from 'react-bootstrap-sweetalert';
 import { useSelector,useDispatch  } from 'react-redux';
 import { Icon } from "../page";
 
