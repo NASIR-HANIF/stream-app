@@ -33,7 +33,7 @@ export const Page = async () => {
                     <meta property="og:image" content="https://th.bing.com/th/id/OIP.g-KcgY9WQJ4iJYckXWU8AgHaHa?rs=1&pid=ImgDetMain" key="ogimage" />
                 </Head>
              {
-                data && data.data ?    <Videos videos={data && data.data} /> : null
+                data && data.data ?  <Videos videos={data && data.data} /> : null
              }
             </Template>
         </>
