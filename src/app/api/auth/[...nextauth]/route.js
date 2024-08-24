@@ -74,7 +74,7 @@ const handler = NextAuth({
         try {
           await axios({
             method: "post",
-            url: process.env.NEXT_PUBLIC_ENDPOINT + "/api/user",
+            url: process.env.NEXT_PUBLIC_ENDPOINT+"/api/user",
             data: data
           })
           return true;
